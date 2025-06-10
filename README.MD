@@ -1,5 +1,5 @@
 Enlace a Github:
-https://github.com/xllasmar516/HLC/tree/main/EVENTOS
+https://github.com/xllasmar516/DI/
 
 Enlace al alojamiento web:
 http://codigoycafe.great-site.net/DI
