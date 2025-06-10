@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Código y café</title>
+    <!-- Enlaces a bootstrap-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Engagement&family=Gabriela&family=Lora:ital,wght@0,400..700;1,400..700&family=Quicksand:wght@300..700&family=Titan+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      th {
+        background-color: #f3680c !important;
+      }
+
+      td {
+        background-color: #fffed6 !important;
+      }
+
+      .fondo-naranja {
+        background-color: #ffb219 !important;
+      }
+      body {
+        background-color: #ffc247;
+        /*background-image: url(/DIW/img/background.jpg);
+        background-size: cover;  Escala para cubrir toda la pantalla 
+        background-position: center;  Centra la imagen 
+        background-repeat: no-repeat;  No repetir la imagen 
+        height: 100vh; */
+      }
+      form {
+        margin: 100px;
+      }
+      nav {
+        font-size: 1.2em;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+      }
+      h5,
+      p,
+      #txtBuscado {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+      }
+      #txtBuscado {
+        color: #5a2400;
+      }
+
+      .fondo-amarillo {
+        background-color: #ffe863 !important;
+      }
+      h1 {
+        font-family: "Engagement", serif;
+        color: #5a2400;
+        font-size: 600%;
+        text-align: center;
+      }
+
+      /* Estilos para los iconos del navbar */
+      .navbar-icons {
+        font-size: 1.5em;
+        color: #5a2400;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-icons:hover {
+        color: #2d1200;
+        text-decoration: none;
+      }
+
+      .notification-badge {
+        position: relative;
+      }
+
+      .notification-badge::after {
+        content: "3";
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fondo-naranja mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand my-2 mx-3" href="#">
+          <img
+            src="./img/logo.png"
+            alt="Código y Café"
+            id="logo"
+            style="height: 2.5em"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Participantes
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuAltaParticipante"
+                    >Alta de participante</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuBuscarParticipante"
+                    >Buscar participante</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuListadoParticipantes"
+                    >Listado de participantes</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuListadoPorEvento"
+                    >Listado de participantes por evento</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Eventos
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuAltaEvento"
+                    >Alta de evento</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuBuscarEvento"
+                    >Buscar evento</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuListadoEventos"
+                    >Listado de eventos</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" id="mnuListadoPorFecha"
+                    >Listado de eventos por fecha</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Iconos de la derecha -->
+          <div class="d-flex align-items-center">
+            <!-- Icono de notificaciones/mensajes -->
+            <a
+              href="#"
+              class="navbar-icons notification-badge"
+              title="Notificaciones"
+            >
+              <i class="bi bi-envelope"></i>
+            </a>
+
+            <!-- Icono de cuenta/login -->
+            <a href="#" class="navbar-icons" title="Mi cuenta">
+              <i class="bi bi-person-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container" id="landpage">
+      <h1>¡Bienvenido!</h1>
+
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide my-5 col-lg-12 d-lg-block d-none"
+        style="height: 85vh"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="./img/ciberseguridad.jpg"
+              class="d-block mx-auto"
+              style="height: 85vh; position: center"
+              alt="Informático con pantallas con código de color rojo"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Foro sobre Ciberseguridad</h5>
+              <p>Retos y soluciones en seguridad informática</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./img/liderazgo.jpg"
+              class="d-block mx-auto"
+              style="height: 85vh; position: center"
+              alt="Tres informáticos mirando código"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Foro de Liderazgo Empresarial</h5>
+              <p>Encuentro con expertos en liderazgo y gestión empresarial</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./img/marketing.jpg"
+              class="d-block mx-auto"
+              style="height: 85vh; position: center"
+              alt="Pantallas QLED 8K"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Seminario de Marketing Digital</h5>
+              <p>Estrategias modernas para el marketing en línea</p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Toast Container -->
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div
+          id="loginToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header bg-warning text-dark">
+            <strong class="me-auto">Aviso</strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body">
+            Primero debe iniciar sesión para darse de alta en el evento.
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Obtener todos los botones "Darse de alta"
+          const btnsDarseAlta = document.querySelectorAll(".btn-darse-alta");
+
+          // Obtener el elemento toast
+          const toastElement = document.getElementById("loginToast");
+          const toast = new bootstrap.Toast(toastElement);
+
+          // Agregar event listener a cada botón
+          btnsDarseAlta.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+              toast.show(); // Mostrar el toast
+            });
+          });
+        });
+      </script>
+
+      <div id="cardsMasBuscado" class="container">
+        <h3 class="text-center mb-4" id="txtBuscado">LO MÁS BUSCADO</h3>
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="img/IAcards.png" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Congreso de inteligencia artificial</h5>
+                <p class="card-text">
+                  Impacto de la IA en el mundo empresarial.
+                </p>
+                <a href="#" class="btn btn-primary btn-darse-alta">Darse de alta</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="img/e-comerce.jpg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Congreso de E-commerce
+                  <span class="badge bg-success">Novedad</span>
+                </h5>
+                <p class="card-text">Estrategias para el comercio en línea.</p>
+                <a href="#" class="btn btn-primary btn-darse-alta">Darse de alta</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="img/negociacion.png" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Taller de Habilidades de Negociación</h5>
+                <p class="card-text">
+                  Técnicas efectivas para negociaciones exitosas.
+                </p>
+                <a href="#" class="btn btn-primary btn-darse-alta">Darse de alta</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="img/innovacion.jpg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Cumbre de Innovación y Emprendimiento
+                  <span class="badge bg-warning text-dark">Ultimas plazas</span>
+                </h5>
+                <p class="card-text">
+                  Discusión sobre tendencias innovadoras en startups.
+                </p>
+                <a href="#" class="btn btn-primary btn-darse-alta">Darse de alta</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="img/finanzas.jpg" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Simposio de Finanzas y Economía</h5>
+                <p class="card-text">
+                  Análisis de las tendencias económicas globales.
+                </p>
+                <a href="#" class="btn btn-primary btn-darse-alta">Darse de alta</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion m-5" id="acordeonQA">
+        <div class="accordion-item">
+          <h2 class="accordion-header fondo-amarillo">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              ¿Cuál es nuestra dinámica?
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong
+                >Nos dedicamos a realizar eventos informativos sobre las nuevas
+                tecnologías</strong
+              >, lenguajes de programación, la inteligencia artificial,
+              dispositivos y entornos de desarrollos recomendables, etc. Nuestra
+              intención es brindarle un espacio cómodo donde aprender, hablar
+              con otras personas especializadas, pedir consejo y tomarse un
+              cafelito entre compañeros de afición.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header fondo-amarillo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              ¿Hay que pagar para participar?
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong>No hay que pagar nada.</strong> Lo que te quieras tomar en
+              el evento es gratis, tenemos inversores que nos permiten tener
+              este pequeño servicio, pero solo teniendo una consumición, es
+              decir, una vez hayas pedido algo para beber y algo para comer
+              (tenemos en cuenta la bebida y comida de tus acompañantes)
+              nosotros apuntaremos tu número identificativo para saber quién ha
+              utilizado su consumición y quién no.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header fondo-amarillo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              ¿Cuál es la finalidad de estos eventos?
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <strong
+                >Animar a personas con poca experiencia en el mundo de la
+                informática</strong
+              >
+              a introducirse en esta nueva era de las tecnologías y a aprender
+              un poquito más para no sentirse angustiado a la hora de tener
+              contacto con aparatos electrónicos o miedoso al comprar algo que
+              te facilitará la vida si entiendes como funciona.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><i class="m-1 bi-exclamation-triangle"></i>Advertencia</strong>
+        Esta página no usa cookies.
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      <footer class="bi-mouse2 text-white py-4 text-center">
+        <p>&copy; 2025 InfoEventos. Todos los derechos reservados.</p>
+        <a href="#" class="text-white-50">Política de privacidad</a>
+      </footer>
+    </div>
+    <div class="container" id="formularios">
+      <div class="row">
+        <!-- ALTA EVENTO -->
+        <form
+          class="form-horizontal d-none"
+          name="frmAltaEvento"
+          id="frmAltaEvento"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Alta de evento</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaNombreE"
+                >Nombre del evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaNombreE"
+                  name="txtAltaNombreE"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaDescripcion"
+                >Descripción</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <textarea
+                  id="txtAltaDescripcion"
+                  name="txtAltaDescripcion"
+                  class="form-control input-md"
+                ></textarea>
+              </div>
+            </div>
+            <!-- URL input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="urlAltaImagen"
+                >Imagen</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="urlAltaImagen"
+                  name="urlAltaImagen"
+                  class="form-control input-md"
+                  type="url"
+                />
+              </div>
+            </div>
+            <!-- Date input-->
+            <div class="form-group">
+              <!-- No creo que txtAltaFecha sea el nombre mas 
+                    adecuado pero no se como ponerlo sino -->
+              <label class="col-md-6 col-lg-4 control-label" for="txtAltaFecha"
+                >Fecha</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaFecha"
+                  name="txtAltaFecha"
+                  class="form-control input-md"
+                  type="date"
+                />
+              </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaLocalizacion"
+                >Localización</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaLocalizacion"
+                  name="txtAltaLocalizacion"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaOrganizador"
+                >Nombre de organizador del evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaOrganizador"
+                  name="txtAltaOrganizador"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarAltaEvento"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarAltaEvento"
+                  name="btnAceptarAltaEvento"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- ALTA PARTICIPANTE -->
+        <form
+          class="form-horizontal d-none"
+          name="frmAltaParticipante"
+          id="frmAltaParticipante"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Alta de participante</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaNombreP"
+                >Nombre</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaNombreP"
+                  name="txtAltaNombreP"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="txtAltaEmail"
+                >Email</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaEmail"
+                  name="txtAltaEmail"
+                  class="form-control input-md"
+                  type="email"
+                />
+              </div>
+            </div>
+
+            <!-- Desplegable eventos-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="lstAltaEvento"
+                >Evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <select
+                  class="form-select"
+                  name="lstAltaEvento"
+                  id="lstAltaEvento"
+                ></select>
+              </div>
+            </div>
+
+            <!-- Desplegable estado inscripcion-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="lstAltaInscripcionEstado"
+                >Estado de la inscripción</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <select
+                  class="form-select"
+                  name="lstAltaInscripcionEstado"
+                  id="lstAltaInscripcionEstado"
+                >
+                  <option selected value="Pendiente">Pendiente</option>
+                  <option value="Confirmado">Confirmado</option>
+                  <option value="Cancelado">Cancelado</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Number input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaAcompanantes"
+                >Nº de acompañantes</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaAcompanantes"
+                  name="txtAltaAcompanantes"
+                  class="form-control input-md"
+                  type="number"
+                  max="10"
+                />
+              </div>
+            </div>
+
+            <!-- Fecha inscripcion-->
+            <!--Preguntar a carlos si esto deberia de ser un campo automatico 
+             a la hora del alta y luego en la modificacion que no se pueda cambiar-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtAltaInscripcionFecha"
+                >Fecha de la inscripción</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtAltaInscripcionFecha"
+                  name="txtAltaInscripcionFecha"
+                  class="form-control input-md"
+                  type="date"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarAltaParticipante"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarAltaParticipante"
+                  name="btnAceptarAltaParticipante"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- MODIFICAR EVENTO -->
+        <form
+          class="form-horizontal d-none"
+          name="frmModEvento"
+          id="frmModEvento"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Modificación de evento</legend>
+
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModIdEvento"
+                >ID</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModIdEvento"
+                  name="txtModIdEvento"
+                  class="form-control input-md"
+                  type="text"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="txtModNombreE"
+                >Nombre</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModNombreE"
+                  name="txtModNombreE"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModDescripcion"
+                >Descripción</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <textarea
+                  id="txtModDescripcion"
+                  name="txtModDescripcion"
+                  class="form-control input-md"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- URL input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="urlModImagen"
+                >Imagen</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="urlModImagen"
+                  name="urlModImagen"
+                  class="form-control input-md"
+                  type="url"
+                />
+              </div>
+            </div>
+
+            <!-- Date input-->
+            <div class="form-group">
+              <!-- No creo que txtAltaFecha sea el nombre mas 
+                    adecuado pero no se como ponerlo sino -->
+              <label class="col-md-6 col-lg-4 control-label" for="txtModFecha"
+                >Fecha</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModFecha"
+                  name="txtModFecha"
+                  class="form-control input-md"
+                  type="date"
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModLocalizacion"
+                >Localización</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModLocalizacion"
+                  name="txtModLocalizacion"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModOrganizador"
+                >Nombre de organizador del evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModOrganizador"
+                  name="txtModOrganizador"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarModEvento"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarModEvento"
+                  name="btnAceptarModEvento"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- MODIFICAR PARTICIPANTE -->
+        <form
+          class="form-horizontal d-none"
+          name="frmModParticipante"
+          id="frmModParticipante"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Modificación de participante</legend>
+
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModIdParticipante"
+                >ID</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModIdParticipante"
+                  name="txtModIdParticipante"
+                  class="form-control input-md"
+                  type="text"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="txtModNombreP"
+                >Nombre</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModNombreP"
+                  name="txtModNombreP"
+                  class="form-control input-md"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="txtModEmail"
+                >Email</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModEmail"
+                  name="txtModEmail"
+                  class="form-control input-md"
+                  type="email"
+                />
+              </div>
+            </div>
+
+            <!-- Desplegable eventos-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="lstModEvento"
+                >Evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <select
+                  class="form-select"
+                  name="lstModEvento"
+                  id="lstModEvento"
+                ></select>
+              </div>
+            </div>
+
+            <!-- Desplegable estado inscripcion-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="lstModInscripcionEstado"
+                >Estado de la inscripción</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <select
+                  class="form-select"
+                  name="lstModInscripcionEstado"
+                  id="lstModInscripcionEstado"
+                >
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Confirmado">Confirmado</option>
+                  <option value="Cancelado">Cancelado</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Number input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtModAcompanantes"
+                >Nº de acompañantes</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtModAcompanantes"
+                  name="txtModAcompanantes"
+                  class="form-control input-md"
+                  type="number"
+                  max="10"
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarModParticipante"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarModParticipante"
+                  name="btnAceptarModParticipante"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- BUSCAR EVENTO -->
+        <form
+          class="form-horizontal d-none"
+          name="frmBuscarEvento"
+          id="frmBuscarEvento"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Buscar un evento</legend>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="txtIdEvento"
+                >ID</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtIdEvento"
+                  name="txtIdEvento"
+                  placeholder="ID del evento"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarBuscarEvento"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarBuscarEvento"
+                  name="btnAceptarBuscarEvento"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- BUSCAR PARTICIPANTE -->
+        <form
+          class="form-horizontal d-none"
+          name="frmBuscarParticipante"
+          id="frmBuscarParticipante"
+        >
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Buscar un participante</legend>
+            <!-- Text input-->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtIdParticipante"
+                >ID</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  id="txtIdParticipante"
+                  name="txtIdParticipante"
+                  placeholder="ID del participante"
+                  class="form-control input-md"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarBuscarParticipante"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarBuscarParticipante"
+                  name="btnAceptarBuscarParticipante"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- LISTADO DE EVENTOS POR FECHA -->
+        <form class="form-horizontal d-none" id="frmEventosFecha">
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Buscar eventos en una fecha</legend>
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="txtFechaEvento"
+                >Fecha</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="date"
+                  name="txtFechaEvento"
+                  id="txtFechaEvento"
+                  value=""
+                />
+              </div>
+            </div>
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarBuscarEventosFecha"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarBuscarEventosFecha"
+                  name="btnAceptarBuscarEventosFecha"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- LISTADO DE PARTICIPANTES POR EVENTO -->
+        <form class="form-horizontal d-none" id="frmParticipantesEvento">
+          <fieldset>
+            <!-- Form Name -->
+            <legend>Buscar participantes de un evento</legend>
+            <div class="form-group">
+              <label class="col-md-6 col-lg-4 control-label" for="lstEventoP"
+                >Evento</label
+              >
+              <div class="col-md-6 col-lg-4">
+                <select
+                  name="lstEventoP"
+                  id="lstEventoP"
+                  class="form-select"
+                  aria-label="Default select example"
+                ></select>
+              </div>
+            </div>
+            <!-- Button -->
+            <div class="form-group">
+              <label
+                class="col-md-6 col-lg-4 control-label"
+                for="btnAceptarBuscarParticipantesEvento"
+              ></label>
+              <div class="col-md-6 col-lg-4">
+                <input
+                  type="button"
+                  id="btnAceptarBuscarParticipantesEvento"
+                  name="btnAceptarBuscarParticipantesEvento"
+                  class="btn btn-primary"
+                  value="Aceptar"
+                />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="container" id="resultadoBusqueda"></div>
+    <div class="container" id="listados"></div>
+
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/objetos.js"></script>
+    <script type="text/javascript" src="js/codigo.js"></script>
+  </body>
+</html>
