@@ -43,7 +43,10 @@ function registrarEventos() {
     "click",
     procesarAltaParticipante
   );
-  frmModEvento.btnAceptarModEvento.addEventListener("click", procesarModificarEvento);
+  frmModEvento.btnAceptarModEvento.addEventListener(
+    "click",
+    procesarModificarEvento
+  );
   frmModParticipante.btnAceptarModParticipante.addEventListener(
     "click",
     procesarModificarParticipante
@@ -290,9 +293,7 @@ async function procesarListadoEventos(oEvento) {
   let respuesta = null;
   if (oEvento.target.id == "btnAceptarBuscarEventosFecha") {
     let fecha = frmEventosFecha.txtFechaEvento.value;
-    respuesta = await oPlataforma.listadoPorFecha(
-      fecha
-    );
+    respuesta = await oPlataforma.listadoPorFecha(fecha);
   } else {
     respuesta = await oPlataforma.listadoEventos();
   }
@@ -314,11 +315,15 @@ async function procesarListadoEventos(oEvento) {
       listado += "<td>" + evento.evento_localizacion + "</td>";
       listado += "<td>" + evento.evento_organizador + "</td>";
       listado +=
-        "<td><button class='btn btn-danger' id='btnBorrarEvento" + evento.evento_id + "' data-eventoid='" +
+        "<td><button class='btn btn-danger' id='btnBorrarEvento" +
+        evento.evento_id +
+        "' data-eventoid='" +
         evento.evento_id +
         "'><i class='bi bi-trash'></i></button>";
       listado +=
-        "<button class='btn btn-primary' id='btnModEvento" + evento.evento_id + "' data-evento='" +
+        "<button class='btn btn-primary' id='btnModEvento" +
+        evento.evento_id +
+        "' data-evento='" +
         JSON.stringify(evento) +
         "'><i class='bi bi-pencil-square'></i></button></td></tr>";
     }
@@ -410,7 +415,9 @@ function procesarBotonEditarEvento(oEvento) {
     frmModEvento.classList.remove("d-none");
     // 3. Rellenar los datos de este formulario con los del evento
     let evento = JSON.parse(boton.dataset.evento);
-    let fechaFormateada = new Date(evento.evento_fecha).toISOString().split("T")[0];
+    let fechaFormateada = new Date(evento.evento_fecha)
+      .toISOString()
+      .split("T")[0];
     frmModEvento.txtModIdEvento.value = evento.evento_id;
     frmModEvento.txtModNombreE.value = evento.evento_nombre;
     frmModEvento.txtModDescripcion.value = evento.evento_descripcion;
@@ -457,7 +464,7 @@ async function procesarModificarEvento() {
 }
 
 function validarModEvento() {
-  // Recuperar datos del formulario 
+  // Recuperar datos del formulario
   let nombre = frmModEvento.txtModNombreE.value.trim();
   let descripcion = frmModEvento.txtModDescripcion.value.trim();
   let imagen = frmModEvento.urlModImagen.value.trim();
@@ -587,39 +594,56 @@ function validarModParticipante() {
 async function procesarBuscarEvento() {
   if (validarBuscarEvento()) {
     ocultarFormularios();
-      let idEvento = parseInt(frmBuscarEvento.txtIdEvento.value.trim());
+    let idEvento = parseInt(frmBuscarEvento.txtIdEvento.value.trim());
 
-      let respuesta = await oPlataforma.buscarEvento(idEvento);
+    let respuesta = await oPlataforma.buscarEvento(idEvento);
 
-      if (!respuesta.error) { // Si NO hay error
-          let resultadoBusqueda = document.querySelector("#resultadoBusqueda");
+    if (!respuesta.error) {
+      // Si NO hay error
+      let resultadoBusqueda = document.querySelector("#resultadoBusqueda");
 
-          // Escribimos resultado
-          let tablaSalida = "<table class='table'>";
-          tablaSalida += "<thead><tr><th>EVENTOID</th><th>NOMBRE</th><th>DESCRIPCIÓN</th><th>IMAGEN</th><th>FECHA</th><th>LOCALIZACIÓN</th><th>ORGANIZADOR</th><th>EDITAR/BORRAR</th></tr></thead>";
-          tablaSalida += "<tbody><tr>";
-          tablaSalida += "<td>" + respuesta.datos.evento_id + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_nombre + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_descripcion + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_imagen + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_fecha + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_localizacion + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento_organizador + "</td>";
-          tablaSalida += "<td><button class='btn btn-danger' id='btnBorrarEvento" + respuesta.datos.evento_id + "' data-eventoid='" + respuesta.datos.evento_id + "'><i class='bi bi-trash'></i></button>";
-          tablaSalida += "<button class='btn btn-primary' id='btnModEvento" + respuesta.datos.evento_id + "' data-evento='" + JSON.stringify(respuesta.datos) + "'><i class='bi bi-pencil-square'></i></button></td>";
-          tablaSalida += "</tr></tbody></table>";
+      // Escribimos resultado
+      let tablaSalida = "<table class='table'>";
+      tablaSalida +=
+        "<thead><tr><th>EVENTOID</th><th>NOMBRE</th><th>DESCRIPCIÓN</th><th>IMAGEN</th><th>FECHA</th><th>LOCALIZACIÓN</th><th>ORGANIZADOR</th><th>EDITAR/BORRAR</th></tr></thead>";
+      tablaSalida += "<tbody><tr>";
+      tablaSalida += "<td>" + respuesta.datos.evento_id + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_nombre + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_descripcion + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_imagen + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_fecha + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_localizacion + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento_organizador + "</td>";
+      tablaSalida +=
+        "<td><button class='btn btn-danger' id='btnBorrarEvento" +
+        respuesta.datos.evento_id +
+        "' data-eventoid='" +
+        respuesta.datos.evento_id +
+        "'><i class='bi bi-trash'></i></button>";
+      tablaSalida +=
+        "<button class='btn btn-primary' id='btnModEvento" +
+        respuesta.datos.evento_id +
+        "' data-evento='" +
+        JSON.stringify(respuesta.datos) +
+        "'><i class='bi bi-pencil-square'></i></button></td>";
+      tablaSalida += "</tr></tbody></table>";
 
-          resultadoBusqueda.innerHTML = tablaSalida;
-          // resultadoBusqueda.style.display = 'block';
+      resultadoBusqueda.innerHTML = tablaSalida;
+      // resultadoBusqueda.style.display = 'block';
 
-          // Registrar evento para el botón borrar
-          document.querySelector("#btnBorrarEvento" + respuesta.datos.evento_id).addEventListener("click", borrarEvento);
-          document.querySelector("#btnModEvento" + respuesta.datos.evento_id).addEventListener("click", procesarBotonEditarEvento);
-      } else { // Si hay error
-          alert(respuesta.mensaje);
-      }
-      //Resetear formulario
-      frmBuscarEvento.reset();
+      // Registrar evento para el botón borrar
+      document
+        .querySelector("#btnBorrarEvento" + respuesta.datos.evento_id)
+        .addEventListener("click", borrarEvento);
+      document
+        .querySelector("#btnModEvento" + respuesta.datos.evento_id)
+        .addEventListener("click", procesarBotonEditarEvento);
+    } else {
+      // Si hay error
+      alert(respuesta.mensaje);
+    }
+    //Resetear formulario
+    frmBuscarEvento.reset();
   }
 }
 
@@ -629,13 +653,13 @@ function validarBuscarEvento() {
   let errores = "";
 
   if (isNaN(idEvento)) {
-      valido = false;
-      errores += "El identificador de participante debe ser numérico";
+    valido = false;
+    errores += "El identificador de participante debe ser numérico";
   }
 
   if (!valido) {
-      // Hay errores
-      alert(errores);
+    // Hay errores
+    alert(errores);
   }
 
   return valido;
@@ -644,55 +668,78 @@ function validarBuscarEvento() {
 async function procesarBuscarParticipante() {
   if (validarBuscarParticipante()) {
     ocultarFormularios();
-      let idParticipante = parseInt(frmBuscarParticipante.txtIdParticipante.value.trim());
+    let idParticipante = parseInt(
+      frmBuscarParticipante.txtIdParticipante.value.trim()
+    );
 
-      let respuesta = await oPlataforma.buscarParticipante(idParticipante);
+    let respuesta = await oPlataforma.buscarParticipante(idParticipante);
 
-      if (!respuesta.error) { // Si NO hay error
-          let resultadoBusqueda = document.querySelector("#resultadoBusqueda");
+    if (!respuesta.error) {
+      // Si NO hay error
+      let resultadoBusqueda = document.querySelector("#resultadoBusqueda");
 
-          // Escribimos resultado
-          let tablaSalida = "<table class='table'>";
-          tablaSalida += "<thead><tr><th>IDPARTICIPANTE</th><th>NOMBRE</th><th>EMAIL</th><th>EVENTO</th><th>ESTADO INSCRIPCIÓN</th><th>Nº ACOMPAÑANTES</th><th>FECHA INSCRIPCIÓN</th><th>EDITAR/BORRAR</th></tr></thead>";
-          tablaSalida += "<tbody><tr>";
-          tablaSalida += "<td>" + respuesta.datos.participante_id + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.participante_nombre + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.participante_email + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.evento + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.inscripcion_estado + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.numero_acompanantes + "</td>";
-          tablaSalida += "<td>" + respuesta.datos.inscripcion_fecha + "</td>";
-          tablaSalida += "<td><button class='btn btn-danger' id='btnBorrarParticipante" + respuesta.datos.participante_id + "' data-idparticipante='" + respuesta.datos.participante_id + "'><i class='bi bi-trash'></i></button>";
-          tablaSalida += "<button class='btn btn-primary' id='btnModParticipante" + respuesta.datos.participante_id + "' data-participante='" + JSON.stringify(respuesta.datos) + "'><i class='bi bi-pencil-square'></i></button></td>";
-          tablaSalida += "</tr></tbody></table>";
+      // Escribimos resultado
+      let tablaSalida = "<table class='table'>";
+      tablaSalida +=
+        "<thead><tr><th>IDPARTICIPANTE</th><th>NOMBRE</th><th>EMAIL</th><th>EVENTO</th><th>ESTADO INSCRIPCIÓN</th><th>Nº ACOMPAÑANTES</th><th>FECHA INSCRIPCIÓN</th><th>EDITAR/BORRAR</th></tr></thead>";
+      tablaSalida += "<tbody><tr>";
+      tablaSalida += "<td>" + respuesta.datos.participante_id + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.participante_nombre + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.participante_email + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.evento + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.inscripcion_estado + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.numero_acompanantes + "</td>";
+      tablaSalida += "<td>" + respuesta.datos.inscripcion_fecha + "</td>";
+      tablaSalida +=
+        "<td><button class='btn btn-danger' id='btnBorrarParticipante" +
+        respuesta.datos.participante_id +
+        "' data-idparticipante='" +
+        respuesta.datos.participante_id +
+        "'><i class='bi bi-trash'></i></button>";
+      tablaSalida +=
+        "<button class='btn btn-primary' id='btnModParticipante" +
+        respuesta.datos.participante_id +
+        "' data-participante='" +
+        JSON.stringify(respuesta.datos) +
+        "'><i class='bi bi-pencil-square'></i></button></td>";
+      tablaSalida += "</tr></tbody></table>";
 
-          resultadoBusqueda.innerHTML = tablaSalida;
-          // resultadoBusqueda.style.display = 'block';
+      resultadoBusqueda.innerHTML = tablaSalida;
+      // resultadoBusqueda.style.display = 'block';
 
-          // Registrar evento para el botón borrar
-          document.querySelector("#btnBorrarParticipante" + respuesta.datos.participante_id).addEventListener("click", borrarParticipante);
-          document.querySelector("#btnModParticipante" + respuesta.datos.participante_id).addEventListener("click", procesarBotonEditarParticipante);
-      } else { // Si hay error
-          alert(respuesta.mensaje);
-      }
-      //Resetear formulario
-      frmBuscarParticipante.reset();
+      // Registrar evento para el botón borrar
+      document
+        .querySelector(
+          "#btnBorrarParticipante" + respuesta.datos.participante_id
+        )
+        .addEventListener("click", borrarParticipante);
+      document
+        .querySelector("#btnModParticipante" + respuesta.datos.participante_id)
+        .addEventListener("click", procesarBotonEditarParticipante);
+    } else {
+      // Si hay error
+      alert(respuesta.mensaje);
+    }
+    //Resetear formulario
+    frmBuscarParticipante.reset();
   }
 }
 
 function validarBuscarParticipante() {
-  let idParticipante = parseInt(frmBuscarParticipante.txtIdParticipante.value.trim());
+  let idParticipante = parseInt(
+    frmBuscarParticipante.txtIdParticipante.value.trim()
+  );
   let valido = true;
   let errores = "";
 
   if (isNaN(idParticipante)) {
-      valido = false;
-      errores += "El identificador de participante debe ser numérico";
+    valido = false;
+    errores += "El identificador de participante debe ser numérico";
   }
 
   if (!valido) {
-      // Hay errores
-      alert(errores);
+    // Hay errores
+    alert(errores);
   }
 
   return valido;
@@ -742,18 +789,18 @@ async function borrarParticipante(oEvento) {
   }
 }
 document.addEventListener("DOMContentLoaded", function () {
-          // Obtener todos los botones "Darse de alta"
-          const btnsDarseAlta = document.querySelectorAll(".btn-darse-alta");
+  // Obtener todos los botones "Darse de alta"
+  const btnsDarseAlta = document.querySelectorAll(".btn-darse-alta");
 
-          // Obtener el elemento toast
-          const toastElement = document.getElementById("loginToast");
-          const toast = new bootstrap.Toast(toastElement);
+  // Obtener el elemento toast
+  const toastElement = document.getElementById("loginToast");
+  const toast = new bootstrap.Toast(toastElement);
 
-          // Agregar event listener a cada botón
-          btnsDarseAlta.forEach(function (btn) {
-            btn.addEventListener("click", function (e) {
-              e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-              toast.show(); // Mostrar el toast
-            });
-          });
-        });
+  // Agregar event listener a cada botón
+  btnsDarseAlta.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+      toast.show(); // Mostrar el toast
+    });
+  });
+});
