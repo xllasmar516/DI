@@ -741,3 +741,19 @@ async function borrarParticipante(oEvento) {
     alert(respuesta.mensaje);
   }
 }
+document.addEventListener("DOMContentLoaded", function () {
+          // Obtener todos los botones "Darse de alta"
+          const btnsDarseAlta = document.querySelectorAll(".btn-darse-alta");
+
+          // Obtener el elemento toast
+          const toastElement = document.getElementById("loginToast");
+          const toast = new bootstrap.Toast(toastElement);
+
+          // Agregar event listener a cada botón
+          btnsDarseAlta.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+              toast.show(); // Mostrar el toast
+            });
+          });
+        });
